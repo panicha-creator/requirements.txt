@@ -5,7 +5,7 @@ import json
 import os
 import io
 
-GOOGLE_API_KEY = "AQ.Ab8RN6JKE2ZzSurjgv2nksMMUUw0yrDjHRj8wzQkQ_43Chz-zA"
+GOOGLE_API_KEY = "AQ.Ab8RN6J8zR12qPrEJKrt5qOitglquGmE8OFlXv2kcpuJRPhsjw"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
@@ -71,7 +71,7 @@ if st.button("Start") and uploaded_files and excel_template:
             st.success("Done! AI ประมวลผลสกัดข้อมูลสำเร็จ")
         except Exception as e:
             st.error("Error, Try Again")
-            st.caption(f"รายละเอียดข้อผิดพลาดสำหรับตรวจสอบ: {str(e)}")
+            st.caption(f"{str(e)}")
             st.stop()
 
     with st.spinner("กำลังหยอดตัวเลขลงช่องใน Excel แยกตามปี..."):
