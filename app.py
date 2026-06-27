@@ -71,6 +71,7 @@ if st.button("Start") and uploaded_files and excel_template:
             st.success("Done! AI ประมวลผลสกัดข้อมูลสำเร็จ")
         except Exception as e:
             st.error("Error, Try Again")
+            st.caption(f"รายละเอียดข้อผิดพลาดสำหรับตรวจสอบ: {str(e)}")
             st.stop()
 
     with st.spinner("กำลังหยอดตัวเลขลงช่องใน Excel แยกตามปี..."):
