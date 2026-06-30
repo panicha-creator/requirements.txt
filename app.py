@@ -1,12 +1,12 @@
 import streamlit as st
 import openpyxl
-import google.generativeai as genai
+from google import genai
 import json
 import os
 import io
 
-GOOGLE_API_KEY = "AQ.Ab8RN6JAScE0ao5ce5vxG1vkd2-iPtQQj04szJQaWsdZeOUQ0g"
-genai.configure(api_key=GOOGLE_API_KEY)
+GOOGLE_API_KEY = "AQ.Ab8RN6IniXQrGk1AxwECnzfKIpFKWqtSx3F3_A58nCXqhUow4g"
+client = genai.Client(api_key=GOOGLE_API_KEY)
 
 
 home_dir = os.path.expanduser("~")
@@ -17,7 +17,7 @@ st.title("ยังคิดชื่อเฟี้ยวๆไม่ออก"
 st.write("อัปโหลดไฟล์งบการเงิน PDF เพื่อนำข้อมูลไปอัปเดตลงในไฟล์ Excel อัตโนมัติ")
 
 
-excel_template = st.file_uploader("อัปโหลดไฟล์ Template Excel", type=["xlsx"])
+excel_template = st.file_uploader("อัปโหลดไฟล์ Code_CS_full_financials", type=["xlsx"])
 uploaded_files = st.file_uploader("อัปโหลดไฟล์ PDF (Ratio และ Cash Flow)", type=["pdf"], accept_multiple_files=True)
 
 
@@ -51,9 +51,6 @@ PROMPT_5_YEARS_THAI = """
 if st.button("Start") and uploaded_files and excel_template:
     with st.spinner("Preparing with AI..."):
         
-        
-        model = genai.GenerativeModel('gemini-2.5-flash')
-
         pdf_parts = []
         for uploaded_file in uploaded_files:
             file_bytes = uploaded_file.read()
@@ -63,9 +60,10 @@ if st.button("Start") and uploaded_files and excel_template:
             })
 
         try:
-            response = model.generate_content(
-                pdf_parts + [PROMPT_5_YEARS_THAI],
-                generation_config={"response_mime_type": "application/json"}
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=pdf_parts + [PROMPT_5_YEARS_THAI],
+                config={"response_mime_type": "application/json"}
             )
             ai_extracted_json_thai = json.loads(response.text)
             st.success("Done! AI ประมวลผลสกัดข้อมูลสำเร็จ")
