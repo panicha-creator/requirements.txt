@@ -5,7 +5,7 @@ import json
 import os
 import io
 
-GOOGLE_API_KEY = "AQ.Ab8RN6Iz6e7Vsnx7P4tOsQjuWIFP4Yh6IKOCmpvXSW_gKwHbfQ"
+GOOGLE_API_KEY = "AQ.Ab8RN6JAScE0ao5ce5vxG1vkd2-iPtQQj04szJQaWsdZeOUQ0g"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
