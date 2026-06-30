@@ -5,8 +5,7 @@ from google.genai import types
 import json
 import io
 
-GOOGLE_API_KEY = "AQ.Ab8RN6IniXQrGk1AxwECnzfKIpFKWqtSx3F3_A58nCXqhUow4g"
-client = genai.Client(api_key=GOOGLE_API_KEY)
+client = genai.Client()
 
 st.set_page_config(page_title="ยังคิดชื่อเฟี้ยวๆไม่ออก", page_icon="📊", layout="centered")
                    
