@@ -3,20 +3,15 @@ import openpyxl
 from google import genai
 from google.genai import types
 import json
-import os
 import io
 
 GOOGLE_API_KEY = "AQ.Ab8RN6IniXQrGk1AxwECnzfKIpFKWqtSx3F3_A58nCXqhUow4g"
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
-
-home_dir = os.path.expanduser("~")
-EXCEL_FILE_PATH = os.path.join(home_dir, "Desktop", "Code_CS_full_financials.xlsx")
-
-
+st.set_page_config(page_title="ยังคิดชื่อเฟี้ยวๆไม่ออก", page_icon="📊", layout="centered")
+                   
 st.title("ยังคิดชื่อเฟี้ยวๆไม่ออก")
 st.write("อัปโหลดไฟล์งบการเงิน PDF เพื่อนำข้อมูลไปอัปเดตลงในไฟล์ Excel อัตโนมัติ")
-
 
 excel_template = st.file_uploader("อัปโหลดไฟล์ Code_CS_full_financials", type=["xlsx"])
 uploaded_files = st.file_uploader("อัปโหลดไฟล์ PDF (Ratio และ Cash Flow)", type=["pdf"], accept_multiple_files=True)
@@ -65,7 +60,9 @@ if st.button("Start") and uploaded_files and excel_template:
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=pdf_parts + [PROMPT_5_YEARS_THAI],
-                config={"response_mime_type": "application/json"}
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json"
+                )
             )
             ai_extracted_json_thai = json.loads(response.text)
             st.success("Done! AI ประมวลผลสกัดข้อมูลสำเร็จ")
@@ -104,8 +101,6 @@ if st.button("Start") and uploaded_files and excel_template:
         
         
         for first_key, second_data in ai_extracted_json_thai.items():
-            
-        
             if first_key in column_map_year:
                 col_letter = column_map_year[first_key]
                 if isinstance(second_data, dict):
