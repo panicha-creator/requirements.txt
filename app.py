@@ -54,10 +54,7 @@ if st.button("Start") and uploaded_files and excel_template:
         pdf_parts = []
         for uploaded_file in uploaded_files:
             file_bytes = uploaded_file.read()
-            pdf_parts.append({
-                "mime_type": "application/pdf",
-                "data": file_bytes
-            })
+            pdf_parts.append(io.BytesIO(file_bytes))
 
         try:
             response = client.models.generate_content(
