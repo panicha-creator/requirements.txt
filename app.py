@@ -1,6 +1,7 @@
 import streamlit as st
 import openpyxl
 from google import genai
+from google.genai import types
 import json
 import os
 import io
