@@ -7,9 +7,9 @@ import io
 
 client = genai.Client()
 
-st.set_page_config(page_title="ยังคิดชื่อเฟี้ยวๆไม่ออก", page_icon="📊", layout="centered")
+st.set_page_config(page_title="หัวใจก็เหงา หัวเข่าก็เสื่อม", page_icon="📊", layout="centered")
                    
-st.title("ร่วมตั้งชื่อฟรีท้ายเซคชั่น")
+st.title("หัวใจก็เหงา หัวเข่าก็เสื่อม")
 st.write("อัปโหลดไฟล์งบการเงิน PDF เพื่อนำข้อมูลไปอัปเดตลงในไฟล์ Excel อัตโนมัติ")
 
 excel_template = st.file_uploader("อัปโหลดไฟล์ Code_CS_full_financials", type=["xlsx"])
